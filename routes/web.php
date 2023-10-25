@@ -27,4 +27,6 @@ Route::controller(CustomController::class)->group(function() {
     Route::post('/jumlah', 'jumlah');
     Route::get('/inputmhs', 'inputmhs');
     Route::post('/tampildata', 'tampildata');
+    Route::get('/inputmatkul', 'inputmatkul');
+    Route::post('/tambahmatkul', 'tambahmatkul');
 });

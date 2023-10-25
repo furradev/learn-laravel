@@ -56,4 +56,23 @@ class CustomController extends Controller
                     ->with('alamat', $alamat)
                     ->with('nohp', $nohp);
     }
+
+    public function inputmatkul() {
+        return view('indexmatkul');    
+    }
+
+    public function tambahmatkul(Request $val) {
+        $kode = $val -> kode;
+        $nama = $val -> nama;
+        $sks = $val -> sks;
+        $semester = $val -> semester;
+        $dosen = $val -> dosen;
+
+        return view('indexmatkul')
+                    ->with('kode', $kode)
+                    ->with('nama', $nama)
+                    ->with('sks', $sks)
+                    ->with('semester', $semester)
+                    ->with('dosen', $dosen);
+    }
 }

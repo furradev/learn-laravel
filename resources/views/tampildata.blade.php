@@ -30,10 +30,10 @@
         <th>NoHp</th>
         <tr>
             <td>1</td>
-            <td>{{$nim}}</td>
-            <td>{{$nama}}</td>
-            <td>{{$alamat}}</td>
-            <td>{{$nohp}}</td>
+            <td>{{$nim ? $nim : "-"}}</td>
+            <td>{{$nama ? $nama : "-"}}</td>
+            <td>{{$alamat ? $alamat : "-"}}</td>
+            <td>{{$nohp ? $nohp : "-"}}</td>
         </tr>
     </table>
 </body>

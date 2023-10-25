@@ -22,6 +22,7 @@
 </style>
 <body>
     <div class="container">
+        <a href="{{url('/')}}">Back</a>
         <h1>Input Data Mahasiswa</h1>
         <form method="POST" action="{{url('tampildata')}}">@yield('input')</form>
     </div>

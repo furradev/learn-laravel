@@ -27,5 +27,8 @@
     <br>
     <br>
     <a href="{{url('/inputmhs')}}">Input Mahasiswa</a>
+    <br>
+    <br>
+    <a href="{{url('/inputmatkul')}}">Input Mata Kuliah</a>
 </body>
 </html>

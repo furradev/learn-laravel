@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\CustomController;
+use App\Http\Controllers\CRUDController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,3 +31,11 @@ Route::controller(CustomController::class)->group(function() {
     Route::get('/inputmatkul', 'inputmatkul');
     Route::post('/tambahmatkul', 'tambahmatkul');
 });
+
+Route::controller(CRUDController::class)->group(function() {
+    Route::resource('mahasiswa', CRUDController::class);
+    Route::resource('create', CRUDController::class);
+    Route::post('simpanstore', 'store');
+});
+
+// Route::post('simpanstore', 'App\Http\Controllers\CRUDController@store');

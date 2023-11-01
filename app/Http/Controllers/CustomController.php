@@ -75,4 +75,6 @@ class CustomController extends Controller
                     ->with('semester', $semester)
                     ->with('dosen', $dosen);
     }
+
+    
 }

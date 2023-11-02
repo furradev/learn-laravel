@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CustomController;
 use App\Http\Controllers\CRUDController;
+use App\Http\Controllers\DosenController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,4 +39,8 @@ Route::controller(CRUDController::class)->group(function() {
     Route::post('simpanstore', 'store');
 });
 
-// Route::post('simpanstore', 'App\Http\Controllers\CRUDController@store');
+Route::controller(DosenController::class)->group(function() {
+    Route::resource('dosen', DosenController::class);
+    Route::resource('create', DosenController::class);
+    Route::post('simpandosen', 'store');
+});

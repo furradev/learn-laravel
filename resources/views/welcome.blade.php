@@ -33,5 +33,8 @@
     <br>
     <br>
     <a href="{{url('mahasiswa')}}">Input Mahasiswa with DBMS</a>
+    <br>
+    <br>
+    <a href="{{url('dosen')}}">Input Dosen with DBMS</a>
 </body>
 </html>

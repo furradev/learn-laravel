@@ -11,27 +11,26 @@
     {{$pesan ?? ""}}
     <br>
     <br>
-    <a href="{{url('mahasiswa/create')}}">Tambah Mahasiswa</a>
+    <a href="{{url('dosen/create')}}">Tambah Mahasiswa</a>
     <br>
     <table border="1" width="50%">
         <th>No</th>
-        <th>Nim</th>
+        <th>NID</th>
         <th>Nama</th>
         <th>Alamat</th>
         <th>No Hp</th>
 
         @php
-            $rec= DB::table('tblmhs')
-                    ->GET();
+            $rec= DB::table('tbldosen')->GET();
                     $no = 0;
         @endphp
                     @foreach ($rec as $key => $value) 
                        @php
-                        $no++
+                        $no++;
                        @endphp
                     <tr>
                         <td>{{$no}}</td>
-                        <td>{{$value->nim ?? "-"}}</td>
+                        <td>{{$value->nid ?? "-"}}</td>
                         <td>{{$value->nama ?? "-"}}</td>
                         <td>{{$value->alamat ?? "-"}}</td>
                         <td>{{$value->nohp ?? "-"}}</td>

@@ -33,14 +33,10 @@ Route::controller(CustomController::class)->group(function() {
     Route::post('/tambahmatkul', 'tambahmatkul');
 });
 
-Route::controller(CRUDController::class)->group(function() {
-    Route::resource('mahasiswa', CRUDController::class);
-    Route::resource('create', CRUDController::class);
-    Route::post('simpanstore', 'store');
-});
 
-Route::controller(DosenController::class)->group(function() {
-    Route::resource('dosen', DosenController::class);
-    Route::resource('create', DosenController::class);
-    Route::post('simpandosen', 'store');
-});
+Route::resources([
+    'mahasiswa' => CRUDController::class,
+    'dosen' => DosenController::class,
+]);
+
+// Route::get('deletedosen/{id}', 'DosenController@destroy');

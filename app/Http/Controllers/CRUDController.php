@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CRUDController extends Controller
 {
@@ -40,4 +41,51 @@ class CRUDController extends Controller
                     ->with('judul', 'Daftar Mahasiswa')
                     ->with('pesan', $pesan);
     }
+
+    public function edit($id) {
+        
+        return view('mahasiswa.edit')
+                ->with('judul', 'Form Edit Dosen')
+                ->with('id', $id);
+    }
+
+    public function update(Request $r) {
+        $x = array(
+            'nim' => $r -> nim,
+            'nama' => $r -> nama,
+            'alamat' => $r -> alamat,
+            'nohp' => $r -> nohp,
+        );
+
+        $pesan = '';
+        $rec =\DB::table('tblmhs')
+            ->where('id', $r -> id)
+            ->update($x);
+
+            return view('mahasiswa.list')
+                    ->with('pesan', $pesan);
+    }
+
+    public function destroy($id) {
+        // $x = array(
+        //     'nim' => $r -> nim,
+        //     'nama' => $r -> nama,
+        //     'alamat' => $r -> alamat,
+        //     'nohp' => $r -> nohp,
+        // ); 
+
+        $del = \DB::table('tblmhs')
+                ->where('id', $id)
+                ->delete();
+
+                return redirect()->route('mahasiswa.index')
+                        ->with('id', $id);
+        
+
+        // $deletItem = DB::delete('DELETE FROM tblmhs WHERE id');
+        //     return view('mahasiswa.list')
+        //             ->with('id', $id);
+    }
+        
 }
+

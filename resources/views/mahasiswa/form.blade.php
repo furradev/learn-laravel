@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{url('simpanstore')}}" method="POST">
+    <form action="{{url('mahasiswa')}}" method="POST">
         @csrf
     <label for="nim">Nim</label>
     <input type="number" name="nim">

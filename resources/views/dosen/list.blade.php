@@ -6,12 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{$judul}}</h1>
+    <h1>{{$judul ?? ''}}</h1>
     
     {{$pesan ?? ""}}
     <br>
     <br>
-    <a href="{{url('dosen/create')}}">Tambah Mahasiswa</a>
+    <a href="{{url('dosen/create')}}">Tambah Dosen</a>
     <br>
     <table border="1" width="50%">
         <th>No</th>
@@ -19,6 +19,9 @@
         <th>Nama</th>
         <th>Alamat</th>
         <th>No Hp</th>
+        <th>Edit</th>
+        <th>Delete</th>
+
 
         @php
             $rec= DB::table('tbldosen')->GET();
@@ -34,7 +37,15 @@
                         <td>{{$value->nama ?? "-"}}</td>
                         <td>{{$value->alamat ?? "-"}}</td>
                         <td>{{$value->nohp ?? "-"}}</td>
-                       
+                        <td><a href="{{Route('dosen.edit', $value->id)}}">Edit</a></td>
+                        <td><a href="{{url('deleteMahasiswa/'.$value->id)}}">Delete</a></td>
+                        <td>
+                            <form action="{{Route('dosen.destroy', $value->id)}}" method="POST"  onsubmit="return confirm('Yakin kah manies ?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     
                     @endforeach

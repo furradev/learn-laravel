@@ -32,7 +32,7 @@
     <a href="{{url('/inputmatkul')}}">Input Mata Kuliah</a>
     <br>
     <br>
-    <a href="{{url('mahasiswa')}}">Input Mahasiswa with DBMS</a>
+    <a href="{{Route('mahasiswa.index', 'mahasiswa')}}">Input Mahasiswa with DBMS</a>
     <br>
     <br>
     <a href="{{url('dosen')}}">Input Dosen with DBMS</a>

@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{url('simpandosen')}}" method="POST">
+    <form action="{{url('dosen')}}" method="POST">
         @csrf
     <label for="nid">NID</label>
     <input type="number" name="nid">

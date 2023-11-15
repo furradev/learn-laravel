@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{$judul}}</h1>
+    <h1>List Daftar Mahasiswa</h1>
     
     {{$pesan ?? ""}}
     <br>
@@ -19,6 +19,8 @@
         <th>Nama</th>
         <th>Alamat</th>
         <th>No Hp</th>
+        <th>Edit</th>
+        <th>Delete</th>
 
         @php
             $rec= DB::table('tblmhs')
@@ -35,7 +37,15 @@
                         <td>{{$value->nama ?? "-"}}</td>
                         <td>{{$value->alamat ?? "-"}}</td>
                         <td>{{$value->nohp ?? "-"}}</td>
-                       
+                        <td><a href="{{Route('mahasiswa.edit', $value->id)}}">Edit</a></td>
+                        <td>
+                            <form action="{{Route('mahasiswa.destroy', $value->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
                     </tr>
                     
                     @endforeach

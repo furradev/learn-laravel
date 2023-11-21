@@ -76,5 +76,9 @@ class CustomController extends Controller
                     ->with('dosen', $dosen);
     }
 
+    public function krs() {
+        return view('krs');
+    }
+
     
 }

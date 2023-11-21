@@ -6,25 +6,28 @@
     <title>Document</title>
 </head>
 <body>
+    <h3><a href="{{url('/krs')}}">Back to Home</a></h3>
     <h1>{{$judul ?? ''}}</h1>
     
     {{$pesan ?? ""}}
     <br>
     <br>
-    <a href="{{url('dosen/create')}}">Tambah Dosen</a>
+    <a href="{{url('prodi/create')}}">Tambah Prodi</a>
     <br>
     <table border="1" width="50%">
         <th>No</th>
-        <th>NID</th>
-        <th>Nama</th>
-        <th>Alamat</th>
-        <th>No Hp</th>
+        <th>Kode Prodi</th>
+        <th>Jenjang</th>
+        <th>Fakultas</th>
+        <th>Nama Prodi</th>
+        <th>Tanggal SK</th>
+        <th>Akreditasi</th>
         <th>Edit</th>
         <th>Delete</th>
 
 
         @php
-            $rec= DB::table('tbldosen')->GET();
+            $rec= DB::table('prodi')->GET();
                     $no = 0;
         @endphp
                     @foreach ($rec as $key => $value) 
@@ -33,14 +36,16 @@
                        @endphp
                     <tr>
                         <td>{{$no}}</td>
-                        <td>{{$value->nid ?? "-"}}</td>
-                        <td>{{$value->nama ?? "-"}}</td>
-                        <td>{{$value->alamat ?? "-"}}</td>
-                        <td>{{$value->nohp ?? "-"}}</td>
-                        <td><a href="{{Route('dosen.edit', $value->id)}}">Edit</a></td>
+                        <td>{{$value->kode_prodi ?? "-"}}</td>
+                        <td>{{$value->nama_jenjang ?? "-"}}</td>
+                        <td>{{$value->nama_fakultas ?? "-"}}</td>
+                        <td>{{$value->nama_prodi ?? "-"}}</td>
+                        <td>{{$value->tglsk ?? "-"}}</td>
+                        <td>{{$value->akreditasi ?? "-"}}</td>
+                        <td><a href="{{Route('prodi.edit', $value->id_prodi)}}">Edit</a></td>
                         
                         <td>
-                            <form action="{{Route('dosen.destroy', $value->id)}}" method="POST"  onsubmit="return confirm('Yakin Ingin Menghapus ?')">
+                            <form action="{{Route('prodi.destroy', $value->id_prodi)}}" method="POST"  onsubmit="return confirm('Yakin Ingin Menghapus ?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit">Delete</button>

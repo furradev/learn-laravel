@@ -6,25 +6,24 @@
     <title>Document</title>
 </head>
 <body>
+    <h3><a href="{{url('/krs')}}">Back to Home</a></h3>
     <h1>{{$judul ?? ''}}</h1>
     
     {{$pesan ?? ""}}
     <br>
     <br>
-    <a href="{{url('dosen/create')}}">Tambah Dosen</a>
+    <a href="{{url('tahunakademik/create')}}">Tambah Tahun Akademik</a>
     <br>
     <table border="1" width="50%">
         <th>No</th>
-        <th>NID</th>
-        <th>Nama</th>
-        <th>Alamat</th>
-        <th>No Hp</th>
+        <th>Kode Tahun Akademik</th>
+        <th>Nama Tahun Akademik</th>
         <th>Edit</th>
         <th>Delete</th>
 
 
         @php
-            $rec= DB::table('tbldosen')->GET();
+            $rec= DB::table('tahun_akademik')->GET();
                     $no = 0;
         @endphp
                     @foreach ($rec as $key => $value) 
@@ -33,14 +32,12 @@
                        @endphp
                     <tr>
                         <td>{{$no}}</td>
-                        <td>{{$value->nid ?? "-"}}</td>
-                        <td>{{$value->nama ?? "-"}}</td>
-                        <td>{{$value->alamat ?? "-"}}</td>
-                        <td>{{$value->nohp ?? "-"}}</td>
-                        <td><a href="{{Route('dosen.edit', $value->id)}}">Edit</a></td>
+                        <td>{{$value->kode_tahun_akademik ?? "-"}}</td>
+                        <td>{{$value->nama_tahun_akademik ?? "-"}}</td>
+                        <td><a href="{{Route('tahunakademik.edit', $value->id_tahun_akademik)}}">Edit</a></td>
                         
                         <td>
-                            <form action="{{Route('dosen.destroy', $value->id)}}" method="POST"  onsubmit="return confirm('Yakin Ingin Menghapus ?')">
+                            <form action="{{Route('tahunakademik.destroy', $value->id_tahun_akademik)}}" method="POST"  onsubmit="return confirm('Yakin Ingin Menghapus ?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit">Delete</button>

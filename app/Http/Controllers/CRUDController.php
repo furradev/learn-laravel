@@ -21,6 +21,7 @@ class CRUDController extends Controller
         $x = array(
             'nim' => $r -> nim,
             'nama' => $r -> nama,
+            'jenis_kelamin' => $r->jenis_kelamin,
             'alamat' => $r -> alamat,
             'nohp' => $r -> nohp,
         );
@@ -53,6 +54,7 @@ class CRUDController extends Controller
         $x = array(
             'nim' => $r -> nim,
             'nama' => $r -> nama,
+            'jenis_kelamin' => $r->jenis_kelamin,
             'alamat' => $r -> alamat,
             'nohp' => $r -> nohp,
         );

@@ -19,7 +19,8 @@ class DosenController extends Controller
     public function store(Request $r) {
         $x = array(
             'nid' => $r->nid,
-            'nama' => $r->nama,
+            'nama_dosen' => $r->nama_dosen,
+            'jenis_kelamin' => $r->jenis_kelamin,
             'alamat' => $r->alamat,
             'nohp' => $r->nohp,
         );
@@ -37,35 +38,36 @@ class DosenController extends Controller
             }
 
             return view('dosen.list')
-                    ->with('judul', 'Daftar Mahasiswa')
+                    ->with('judul', 'Daftar Dosen')
                     ->with('pesan', $pesan);
     }
 
-    public function edit($id) {
+    public function edit($id_dosen) {
         
         return view('dosen.edit')
                 ->with('judul', 'Form Edit Dosen')
-                ->with('id', $id);
+                ->with('id_dosen', $id_dosen);
     }
 
     public function update(Request $r) {
         $x = array(
-            'nid' => $r -> nid,
-            'nama' => $r -> nama,
-            'alamat' => $r -> alamat,
-            'nohp' => $r -> nohp,
+            'nid' => $r->nid,
+            'nama_dosen' => $r->nama_dosen,
+            'jenis_kelamin' => $r->jenis_kelamin,
+            'alamat' => $r->alamat,
+            'nohp' => $r->nohp,
         );
 
         $pesan = '';
         $rec =\DB::table('tbldosen')
-            ->where('id', $r -> id)
+            ->where('id_dosen', $r -> id_dosen)
             ->update($x);
 
             return view('dosen.list')
                     ->with('pesan', $pesan);
     }
 
-    public function destroy($id) {
+    public function destroy($id_dosen) {
         // $x = array(
         //     'nim' => $r -> nim,
         //     'nama' => $r -> nama,
@@ -74,11 +76,11 @@ class DosenController extends Controller
         // ); 
 
         $del = \DB::table('tbldosen')
-                ->where('id', $id)
+                ->where('id', $id_dosen)
                 ->delete();
 
                 return redirect()->route('dosen.index')
-                        ->with('id', $id);
+                        ->with('id_dosen', $id_dosen);
         
 
         // $deletItem = DB::delete('DELETE FROM tblmhs WHERE id');

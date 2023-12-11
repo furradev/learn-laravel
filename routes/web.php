@@ -23,8 +23,11 @@ use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\KelasController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('include.welcome');
 });
+// Route::get('/template', function () {
+//     return view('include.welcome');
+// });
 
 
 

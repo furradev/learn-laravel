@@ -20,7 +20,7 @@ class FakultasController extends Controller
         $x = array(
             'kode_fakultas' => $r->kode_fakultas,
             'nama_fakultas' => $r->nama_fakultas,
-            'id_dekan' => $r->id_dekan,
+            'id_dosen' => $r->id_dosen,
         );
 
         $pesan = '';
@@ -51,7 +51,7 @@ class FakultasController extends Controller
         $x = array(
             'kode_fakultas' => $r->kode_fakultas,
             'nama_fakultas' => $r->nama_fakultas,
-            'id_dekan' => $r->id_dekan,
+            'id_dosen' => $r->id_dosen,
         );
 
         $pesan = '';

@@ -19,11 +19,12 @@ class CRUDController extends Controller
 
     public function store(Request $r) {
         $x = array(
-            'nim' => $r -> nim,
-            'nama' => $r -> nama,
+            'nim' => $r->nim,
+            'nama' => $r->nama,
             'jenis_kelamin' => $r->jenis_kelamin,
-            'alamat' => $r -> alamat,
-            'nohp' => $r -> nohp,
+            'alamat' => $r->alamat,
+            'nohp' => $r->nohp,
+            'id_dosen' =>$r->id_dosen,
         );
 
         $pesan = '';
@@ -52,11 +53,12 @@ class CRUDController extends Controller
 
     public function update(Request $r) {
         $x = array(
-            'nim' => $r -> nim,
-            'nama' => $r -> nama,
+            'nim' => $r->nim,
+            'nama' => $r->nama,
             'jenis_kelamin' => $r->jenis_kelamin,
-            'alamat' => $r -> alamat,
-            'nohp' => $r -> nohp,
+            'alamat' => $r->alamat,
+            'nohp' => $r->nohp,
+            'id_dosen' =>$r->id_dosen,
         );
 
         $pesan = '';

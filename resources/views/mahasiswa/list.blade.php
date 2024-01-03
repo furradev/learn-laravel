@@ -10,51 +10,6 @@
 <body>
     @extends('include.welcome')
     @section('content')
-        {{-- <h3><a href="{{ url('/krs') }}">Back to Home</a></h3>
-    <h1>List Daftar Mahasiswa</h1>
-
-    {{ $pesan ?? '' }}
-    <br>
-    <br>
-    <a href="{{ url('mahasiswa/create') }}">Tambah Mahasiswa</a>
-    <br>
-    <table border="1" width="50%">
-        <th>No</th>
-        <th>Nim</th>
-        <th>Nama</th>
-        <th>Alamat</th>
-        <th>No Hp</th>
-        <th>Edit</th>
-        <th>Delete</th>
-
-        @php
-            $rec = DB::table('tblmhs')->GET();
-            $no = 0;
-        @endphp
-        @foreach ($rec as $key => $value)
-            @php
-                $no++;
-            @endphp
-            <tr>
-                <td>{{ $no }}</td>
-                <td>{{ $value->nim ?? '-' }}</td>
-                <td>{{ $value->nama ?? '-' }}</td>
-                <td>{{ $value->alamat ?? '-' }}</td>
-                <td>{{ $value->nohp ?? '-' }}</td>
-                <td><a href="{{ Route('mahasiswa.edit', $value->id) }}">Edit</a></td>
-                <td>
-                    <form action="{{ Route('mahasiswa.destroy', $value->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            </tr>
-        @endforeach
-
-    </table> --}}
-
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -91,6 +46,7 @@
                                             <th>Jenis Kelamin</th>
                                             <th>Alamat</th>
                                             <th>No Hp</th>
+                                            <th>Dosen PA</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
@@ -111,6 +67,14 @@
                                                 <td>{{ $value->jenis_kelamin ?? '-' }}</td>
                                                 <td>{{ $value->alamat ?? '-' }}</td>
                                                 <td>{{ $value->nohp ?? '-' }}</td>
+                                                <td>
+                                                    @php
+                                                        $id_dosen_pa = DB::Table('tbldosen')
+                                                            ->where('id_dosen', $value->id_dosen)
+                                                            ->first();
+                                                        echo $id_dosen_pa ? $id_dosen_pa->nama_dosen : '';
+                                                    @endphp
+                                                </td>
                                                 <td><a href="{{ Route('mahasiswa.edit', $value->id) }}"
                                                         class="btn btn-primary">Edit</a></td>
                                                 <td>

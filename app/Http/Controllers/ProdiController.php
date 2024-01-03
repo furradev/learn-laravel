@@ -20,10 +20,11 @@ class ProdiController extends Controller
         $x = array(
             'kode_prodi' => $r->kode_prodi,
             'nama_prodi' => $r->nama_prodi,
+            'id_dosen' => $r->id_dosen,
             'id_jenjang' => $r->id_jenjang,
             'id_fakultas' => $r->id_fakultas,
             'tglsk' => $r->tglsk,
-            'akreditasi' => $r->akreditasi,
+            'akreditasi' => $r->akreditasi, 
         );
 
         $pesan = '';
@@ -54,10 +55,11 @@ class ProdiController extends Controller
         $x = array(
             'kode_prodi' => $r->kode_prodi,
             'nama_prodi' => $r->nama_prodi,
+            'id_dosen' => $r->id_dosen,
             'id_jenjang' => $r->id_jenjang,
             'id_fakultas' => $r->id_fakultas,
             'tglsk' => $r->tglsk,
-            'akreditasi' => $r->akreditasi,
+            'akreditasi' => $r->akreditasi, 
         );
 
         $pesan = '';

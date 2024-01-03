@@ -11,17 +11,6 @@
 <body>
     @extends('include.welcome')
     @section('content')
-        {{-- <form action="{{ url('fakultas') }}" method="POST">
-            @csrf
-            <label for="kode_fakultas">Kode Fakultas</label>
-            <input type="number" name="kode_fakultas">
-            <label for="nama_fakultas">Nama Fakultas</label>
-            <input type="text" name="nama_fakultas">
-            <label for="id_dekan">ID Dekan</label>
-            <input type="text" name="id_dekan">
-            <button type="submit">Submit</button>
-        </form> --}}
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -51,7 +40,7 @@
                                             id="id_dosen" required>
                                             @php
                                                 $rec = DB::table('tbldosen')->get();
-                                                $id = 0;
+                                                $id_dosen = 0;
                                             @endphp
 
                                             @foreach ($rec as $key)

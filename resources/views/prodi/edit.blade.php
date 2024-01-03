@@ -18,42 +18,8 @@
                 ->first();
             $datajenjang = DB::Table('jenjang')->get();
             $datafakultas = DB::Table('fakultas')->get();
+            $dataKaprodi = DB::Table('tbldosen')->get()
         @endphp
-
-        {{-- <h1>Halaman Edit</h1>
-    <form action="{{ url('prodi/' . $id_prodi) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <input type="hidden" name="id_prodi" value="{{ $id_prodi }}">
-        <label for="kode_prodi">Kode Prodi</label>
-        <input type="number" name="kode_prodi" value="{{ $rec->kode_prodi ?? '' }}">
-        <label for="nama_prodi">Nama Prodi</label>
-        <input type="text" name="nama_prodi" value="{{ $rec->nama_prodi ?? '' }}">
-        <label for="id_jenjang">Jenjang Id:</label>
-        <select id="id_jenjang" name="id_jenjang" required>
-            @foreach ($datajenjang as $jenjang)
-                <option value="{{ $jenjang->id_jenjang }}"
-                    {{ $rec->id_jenjang == $jenjang->id_jenjang ? 'selected' : '' }}>
-                    {{ $jenjang->nama_jenjang }}
-                </option>
-            @endforeach
-        </select>
-        <label for="id_fakultas">Fakultas : </label>
-        <select id="id_fakultas" name="id_fakultas" required>
-            @foreach ($datafakultas as $fakultas)
-                <option value="{{ $fakultas->id_fakultas }}"
-                    {{ $rec->id_fakultas == $fakultas->id_fakultas ? 'selected' : '' }}>
-                    {{ $fakultas->nama_fakultas }}
-                </option>
-            @endforeach
-        </select>
-        <label for="tglsk">Tanggal SK</label>
-        <input type="date" name="tglsk" id="tglsk" value="{{ $rec->tglsk ?? '' }}">
-        <label for="tglsk">Akreditasi</label>
-        <input type="text" name="akreditasi" value="{{ $rec->akreditasi ?? '' }}">
-        <button type="submit">Submit</button>
-    </form> --}}
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -80,6 +46,18 @@
                                         <label for="nama_prodi">Nama Prodi</label>
                                         <input type="text" class="form-control" id="nama_prodi" name="nama_prodi"
                                             value="{{ $rec->nama_prodi ?? '' }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_dosen=">Nama Kaprodi</label>
+                                        <select class="form-control select2" style="width: 100%;" name="id_dosen"
+                                            id="id_dosen" required>
+                                            @foreach ($dataKaprodi as $kaprodi)
+                                                <option value="{{ $kaprodi->id_dosen }}"
+                                                    {{ $rec->id_dosen == $kaprodi->id_dosen ? 'selected' : '' }}>
+                                                    {{ $kaprodi->nama_dosen }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="id_jenjang">Jenjang</label>

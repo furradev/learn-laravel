@@ -11,54 +11,6 @@
 <body>
     @extends('include.welcome')
     @section('content')
-
-        {{-- <form action="{{ url('prodi') }}" method="POST">
-            @csrf
-            <label for="kode_prodi">Kode Prodi</label>
-            <input type="number" name="kode_prodi">
-            <label for="nama_prodi">Nama Prodi</label>
-            <input type="text" name="nama_prodi">
-            <label for="id_jenjang">Jenjang :</label>
-            <select id="id_jenjang" name="id_jenjang" required>
-                @php
-                    $rec = DB::table('jenjang')->get();
-                    $id_jenjang = 0;
-                @endphp
-
-                @foreach ($rec as $key)
-                    @php
-                        if ($id_jenjang == $key->id_jenjang) {
-                            echo "<option selected='selected' value='" . $key->id_jenjang . "'>" . $key->nama_jenjang . '</option>';
-                        } else {
-                            echo "<option value='" . $key->id_jenjang . "'>" . $key->nama_jenjang . '</option>';
-                        }
-                    @endphp
-                @endforeach
-            </select>
-            <label for="id_fakultas">Fakultas : </label>
-            <select id="id_fakultas" name="id_fakultas" required>
-                @php
-                    $rec = DB::table('fakultas')->get();
-                    $id_fakultas = 0;
-                @endphp
-
-                @foreach ($rec as $key)
-                    @php
-                        if ($id_fakultas == $key->id_fakultas) {
-                            echo "<option selected='selected' value='" . $key->id_fakultas . "'>" . $key->nama_fakultas . '</option>';
-                        } else {
-                            echo "<option value='" . $key->id_fakultas . "'>" . $key->nama_fakultas . '</option>';
-                        }
-                    @endphp
-                @endforeach
-            </select>
-            <label for="tglsk">Tanggal SK</label>
-            <input type="date" name="tglsk">
-            <label for="akreditasi">Akreditasi</label>
-            <input type="text" name="akreditasi">
-            <button type="submit">Submit</button>
-        </form> --}}
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -83,6 +35,26 @@
                                         <input type="text" class="form-control" id="nama_prodi" name="nama_prodi">
                                     </div>
                                     <div class="form-group">
+                                        <label for="id_dosen">Nama Kaprodi</label>
+                                        <select class="form-control select2" style="width: 100%;" name="id_dosen"
+                                            id="id_dosen" required>
+                                            @php
+                                                $rec = DB::table('tbldosen')->get();
+                                                $id_dosen = 0;
+                                            @endphp
+
+                                            @foreach ($rec as $key)
+                                                @php
+                                                    if ($id_dosen == $key->id_dosen) {
+                                                        echo "<option selected='selected' value='" . $key->id_dosen . "'>" . $key->nama_dosen . '</option>';    
+                                                    } else {
+                                                        echo "<option value='" . $key->id_dosen . "'>" . $key->nama_dosen . '</option>';
+                                                    }
+                                                @endphp
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="id_jenjang">Jenjang</label>
                                         <select class="form-control select2" style="width: 100%;" name="id_jenjang"
                                             id="id_jenjang" required>
@@ -103,7 +75,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="id_fakultas">Jenjang</label>
+                                        <label for="id_fakultas">Fakultas</label>
                                         <select class="form-control select2" style="width: 100%;" name="id_fakultas"
                                             id="id_fakultas" required>
                                             @php

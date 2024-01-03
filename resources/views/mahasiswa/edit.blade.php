@@ -15,24 +15,8 @@
             $rec = \DB::table('tblmhs')
                 ->where('id', $id)
                 ->first();
+                $dataDosenPA = DB::Table('tbldosen')->get();
         @endphp
-
-        {{-- <h1>Halaman Edit</h1>
-    <form action="{{ url('mahasiswa/' . $id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <input type="hidden" name="id" value="{{ $id }}">
-        <label for="nim">Nim</label>
-        <input type="number" name="nim" value="{{ $rec->nim ?? '' }}">
-        <label for="nama">Nama</label>
-        <input type="text" name="nama" value="{{ $rec->nama ?? '' }}">
-        <label for="alamat">Alamat</label>
-        <input type="text" name="alamat" value="{{ $rec->alamat ?? '' }}">
-        <label for="nohp">No Telepon</label>
-        <input type="number" name="nohp" value="{{ $rec->nohp ?? '' }}">
-        <button type="submit">Submit</button>
-    </form> --}}
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -86,6 +70,18 @@
                                         <label for="nohp">No Telepon</label>
                                         <input type="number" class="form-control" id="nohp" name="nohp"
                                             value="{{ $rec->nohp ?? '' }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_dosen=">Nama Dosen PA</label>
+                                        <select class="form-control select2" style="width: 100%;" name="id_dosen"
+                                            id="id_dosen" required>
+                                            @foreach ($dataDosenPA as $dosenPA)
+                                                <option value="{{ $dosenPA->id_dosen }}"
+                                                    {{ $rec->id_dosen == $dosenPA->id_dosen ? 'selected' : '' }}>
+                                                    {{ $dosenPA->nama_dosen }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

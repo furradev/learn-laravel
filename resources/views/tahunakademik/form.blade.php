@@ -11,15 +11,6 @@
 <body>
     @extends('include.welcome')
     @section('content')
-        {{-- <form action="{{ url('tahunakademik') }}" method="POST">
-        @csrf
-        <label for="kode_tahun_akademik">Kode Tahun Akademik</label>
-        <input type="number" name="kode_tahun_akademik">
-        <label for="nama_tahun_akademik">Nama Tahun Akademik</label>
-        <input type="text" name="nama_tahun_akademik">
-        <button type="submit">Submit</button>
-    </form> --}}
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">

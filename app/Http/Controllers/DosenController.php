@@ -60,10 +60,10 @@ class DosenController extends Controller
 
         $pesan = '';
         $rec =\DB::table('tbldosen')
-            ->where('id_dosen', $r -> id_dosen)
+            ->where('id_dosen', $r->id_dosen)
             ->update($x);
 
-            return view('dosen.list')
+            return redirect()->route('dosen.index')
                     ->with('pesan', $pesan);
     }
 

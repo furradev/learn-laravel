@@ -11,18 +11,6 @@
 <body>
     @extends('include.welcome')
     @section('content')
-        {{-- <form action="{{ url('dosen') }}" method="POST">
-        @csrf
-        <label for="nid">NID</label>
-        <input type="number" name="nid">
-        <label for="nama">Nama</label>
-        <input type="text" name="nama">
-        <label for="alamat">Alamat</label>
-        <input type="text" name="alamat">
-        <label for="nohp">No Telepon</label>
-        <input type="number" name="nohp">
-        <button type="submit">Submit</button>
-    </form> --}}
 
         <section class="content">
             <div class="container-fluid">

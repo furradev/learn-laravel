@@ -11,19 +11,6 @@
 <body>
     @extends('include.welcome')
     @section('content')
-        {{-- <form action="{{ url('mahasiswa') }}" method="POST">
-        @csrf
-        <label for="nim">Nim</label>
-        <input type="number" name="nim">
-        <label for="nama">Nama</label>
-        <input type="text" name="nama">
-        <label for="alamat">Alamat</label>
-        <input type="text" name="alamat">
-        <label for="nohp">No Telepon</label>
-        <input type="number" name="nohp">
-        <button type="submit">Submit</button>
-    </form> --}}
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -72,6 +59,26 @@
                                     <div class="form-group">
                                         <label for="nohp">No Telepon</label>
                                         <input type="number" class="form-control" id="nohp" name="nohp">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_dosen">Nama Dosen PA</label>
+                                        <select class="form-control select2" style="width: 100%;" name="id_dosen"
+                                            id="id_dosen" required>
+                                            @php
+                                                $rec = DB::table('tbldosen')->get();
+                                                $id_dosen = 0;
+                                            @endphp
+
+                                            @foreach ($rec as $key)
+                                                @php
+                                                    if ($id_dosen == $key->id_dosen) {
+                                                        echo "<option selected='selected' value='" . $key->id_dosen . "'>" . $key->nama_dosen . '</option>';
+                                                    } else {
+                                                        echo "<option value='" . $key->id_dosen . "'>" . $key->nama_dosen . '</option>';
+                                                    }
+                                                @endphp
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

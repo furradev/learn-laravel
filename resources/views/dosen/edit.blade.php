@@ -13,25 +13,9 @@
     @section('content')
         @php
             $rec = \DB::table('tbldosen')
-                ->where('id', $id)
+                ->where('id_dosen', $id_dosen)
                 ->first();
         @endphp
-
-        {{-- <h1>Halaman Edit</h1>
-    <form action="{{ url('dosen/' . $id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <input type="hidden" name="id" value="{{ $id }}">
-        <label for="nid">Nid</label>
-        <input type="number" name="nid" value="{{ $rec->nid ?? '' }}">
-        <label for="nama">Nama</label>
-        <input type="text" name="nama" value="{{ $rec->nama ?? '' }}">
-        <label for="alamat">Alamat</label>
-        <input type="text" name="alamat" value="{{ $rec->alamat ?? '' }}">
-        <label for="nohp">No Telepon</label>
-        <input type="number" name="nohp" value="{{ $rec->nohp ?? '' }}">
-        <button type="submit">Submit</button>
-    </form> --}}
 
         <section class="content">
             <div class="container-fluid">
@@ -45,10 +29,10 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{ url('dosen/' . $id) }}" method="POST">
+                            <form action="{{ url('dosen/' . $id_dosen) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <input type="hidden" name="id" value="{{ $id }}">
+                                <input type="hidden" name="id_dosen" value="{{ $id_dosen }}">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="nid">NID</label>

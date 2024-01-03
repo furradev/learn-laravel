@@ -10,49 +10,6 @@
 <body>
     @extends('include.welcome')
     @section('content')
-        {{-- <h3><a href="{{ url('/krs') }}">Back to Home</a></h3>
-        <h1>{{ $judul ?? '' }}</h1>
-
-        {{ $pesan ?? '' }}
-        <br>
-        <br>
-        <a href="{{ url('tahunakademik/create') }}">Tambah Tahun Akademik</a>
-        <br>
-        <table border="1" width="50%">
-            <th>No</th>
-            <th>Kode Tahun Akademik</th>
-            <th>Nama Tahun Akademik</th>
-            <th>Edit</th>
-            <th>Delete</th>
-
-
-            @php
-                $rec = DB::table('tahun_akademik')->GET();
-                $no = 0;
-            @endphp
-            @foreach ($rec as $key => $value)
-                @php
-                    $no++;
-                @endphp
-                <tr>
-                    <td>{{ $no }}</td>
-                    <td>{{ $value->kode_tahun_akademik ?? '-' }}</td>
-                    <td>{{ $value->nama_tahun_akademik ?? '-' }}</td>
-                    <td><a href="{{ Route('tahunakademik.edit', $value->id_tahun_akademik) }}">Edit</a></td>
-
-                    <td>
-                        <form action="{{ Route('tahunakademik.destroy', $value->id_tahun_akademik) }}" method="POST"
-                            onsubmit="return confirm('Yakin Ingin Menghapus ?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-
-        </table> --}}
-
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">

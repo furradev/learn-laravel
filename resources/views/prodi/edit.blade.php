@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Prodi || Edit</title>
-</head>
-
-<body>
     @extends('include.welcome')
     @section('content')
-
         @php
             $rec = \DB::table('prodi')
                 ->where('id_prodi', $id_prodi)
@@ -107,7 +95,4 @@
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </section>
-    </body>
 @stop
-
-</html>

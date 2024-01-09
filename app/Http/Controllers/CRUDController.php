@@ -24,6 +24,7 @@ class CRUDController extends Controller
             'jenis_kelamin' => $r->jenis_kelamin,
             'alamat' => $r->alamat,
             'nohp' => $r->nohp,
+            'id_prodi' =>$r->id_prodi,
             'id_dosen' =>$r->id_dosen,
         );
 
@@ -58,6 +59,7 @@ class CRUDController extends Controller
             'jenis_kelamin' => $r->jenis_kelamin,
             'alamat' => $r->alamat,
             'nohp' => $r->nohp,
+            'id_prodi' =>$r->id_prodi,
             'id_dosen' =>$r->id_dosen,
         );
 

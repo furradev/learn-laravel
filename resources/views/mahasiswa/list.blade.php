@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
     @extends('include.welcome')
     @section('content')
         <section class="content-header">
@@ -46,6 +36,7 @@
                                             <th>Jenis Kelamin</th>
                                             <th>Alamat</th>
                                             <th>No Hp</th>
+                                            <th>Prodi</th>
                                             <th>Dosen PA</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -67,6 +58,14 @@
                                                 <td>{{ $value->jenis_kelamin ?? '-' }}</td>
                                                 <td>{{ $value->alamat ?? '-' }}</td>
                                                 <td>{{ $value->nohp ?? '-' }}</td>
+                                                <td>
+                                                    @php
+                                                        $id_prodi = DB::Table('prodi')
+                                                            ->where('id_prodi', $value->id_prodi)
+                                                            ->first();
+                                                        echo $id_prodi ? $id_prodi->nama_prodi : '';
+                                                    @endphp
+                                                </td>
                                                 <td>
                                                     @php
                                                         $id_dosen_pa = DB::Table('tbldosen')
@@ -105,8 +104,5 @@
             </div>
             <!-- /.container-fluid -->
         </section>
-
-    </body>
 @stop
 
-</html>

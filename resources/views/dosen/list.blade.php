@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
     @extends('include.welcome')
     @section('content')
         <section class="content-header">
@@ -52,15 +42,11 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                            $rec = DB::Table('tbldosen')->GET();
-                                            $no = 0;
+                                            $rec = DB::Table('tbldosen')->paginate(5);
                                         @endphp
                                         @foreach ($rec as $key => $value)
-                                            @php
-                                                $no++;
-                                            @endphp
                                             <tr>
-                                                <td>{{ $no }}</td>
+                                                <td>{{ $rec->firstItem() + $key }}</td>
                                                 <td>{{ $value->nid ?? '-' }}</td>
                                                 <td>{{ $value->nama_dosen ?? '-' }}</td>
                                                 <td>{{ $value->jenis_kelamin ?? '-' }}</td>
@@ -81,6 +67,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="pt-3">
+                                    {{ $rec->links('pagination::bootstrap-5') }}
+                                </div>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ url('/') }}" class="btn btn-danger">Kembali</a>
                                     <a href="{{ url('dosen/create') }}" class="btn btn-primary">Tambah Data</a>
@@ -96,7 +85,4 @@
             </div>
             <!-- /.container-fluid -->
         </section>
-    </body>
-@stop
-
-</html>
+    @stop

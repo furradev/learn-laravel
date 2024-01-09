@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mahasiswa || Edit</title>
-</head>
-
-<body>
     @extends('include.welcome')
     @section('content')
         @php
@@ -16,6 +5,7 @@
                 ->where('id', $id)
                 ->first();
                 $dataDosenPA = DB::Table('tbldosen')->get();
+                $dataProdi = DB::Table('prodi')->get();
         @endphp
         <section class="content">
             <div class="container-fluid">
@@ -72,6 +62,18 @@
                                             value="{{ $rec->nohp ?? '' }}">
                                     </div>
                                     <div class="form-group">
+                                        <label for="id_prodi=">Prodi</label>
+                                        <select class="form-control select2" style="width: 100%;" name="id_prodi"
+                                            id="id_prodi" required>
+                                            @foreach ($dataProdi as $prodi)
+                                                <option value="{{ $prodi->id_prodi }}"
+                                                    {{ $rec->id_prodi == $prodi->id_prodi ? 'selected' : '' }}>
+                                                    {{ $prodi->nama_prodi }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="id_dosen=">Nama Dosen PA</label>
                                         <select class="form-control select2" style="width: 100%;" name="id_dosen"
                                             id="id_dosen" required>
@@ -97,7 +99,5 @@
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </section>
-    </body>
 @stop
 
-</html>

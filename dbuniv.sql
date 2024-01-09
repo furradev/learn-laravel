@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2024 at 03:25 AM
+-- Generation Time: Jan 09, 2024 at 05:43 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -179,7 +179,7 @@ INSERT INTO `tahun_akademik` (`id_tahun_akademik`, `kode_tahun_akademik`, `nama_
 (4, 20232, 'Genap'),
 (5, 20241, 'Ganjil'),
 (6, 20242, 'Genap'),
-(9, 20251, 'Ganjil');
+(9, 20252, 'Ganjil');
 
 -- --------------------------------------------------------
 
@@ -189,10 +189,10 @@ INSERT INTO `tahun_akademik` (`id_tahun_akademik`, `kode_tahun_akademik`, `nama_
 
 CREATE TABLE `tbldosen` (
   `id_dosen` int(50) NOT NULL,
-  `nid` varchar(23) DEFAULT NULL,
-  `nama_dosen` varchar(1222) DEFAULT NULL,
-  `jenis_kelamin` varchar(100) DEFAULT NULL,
-  `alamat` varchar(1222) DEFAULT NULL,
+  `nid` varchar(23) NOT NULL,
+  `nama_dosen` varchar(1222) NOT NULL,
+  `jenis_kelamin` varchar(100) NOT NULL,
+  `alamat` varchar(1222) NOT NULL,
   `nohp` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -227,6 +227,7 @@ CREATE TABLE `tblmhs` (
   `jenis_kelamin` varchar(200) NOT NULL,
   `alamat` varchar(200) NOT NULL,
   `nohp` varchar(100) NOT NULL,
+  `id_prodi` int(11) NOT NULL,
   `id_dosen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -234,13 +235,12 @@ CREATE TABLE `tblmhs` (
 -- Dumping data for table `tblmhs`
 --
 
-INSERT INTO `tblmhs` (`id`, `nim`, `nama`, `jenis_kelamin`, `alamat`, `nohp`, `id_dosen`) VALUES
-(17, '220402072', 'Alfakih Anggi Subekti', 'laki-laki', 'Jl. Cemara Tretes No.15', '082387942123', 20),
-(18, '220402048', 'Abdel Haris Aragati', 'laki-laki', 'Jl. Diponegoro No.2', '089540829312', 22),
-(19, '220402050', 'Alfath Raffandi', 'laki-laki', 'Jl. Sumahilang No.34', '082387392023', 25),
-(20, '220402054', 'Rizky Hermawan', 'laki-laki', 'Jl. Satir No.98', '082736482932', 26),
-(21, '220402032', 'Nia Puspita Sari', 'laki-laki', 'Jl. Senja No.22', '089547283291', 20),
-(22, '220382732', 'Zahra Zakiya', 'perempuan', 'Jl. Rimuru No.03', '0837327462', 22);
+INSERT INTO `tblmhs` (`id`, `nim`, `nama`, `jenis_kelamin`, `alamat`, `nohp`, `id_prodi`, `id_dosen`) VALUES
+(23, '220402072', 'Alfakih Anggi Subekti', 'laki-laki', 'Jl. Cemara Tretes', '0822387482323', 8, 22),
+(24, '220402121', 'Alvis Johanda', 'laki-laki', 'Jl. Kesadaran', '0813214412', 11, 25),
+(25, '220402042', 'Rehan Zulkarnain', 'laki-laki', 'Jl. Cemara Angin', '0814244124', 10, 24),
+(26, '220402075', 'Riski Nur Maulana', 'laki-laki', 'Jl. Angin Hujan', '082387748231', 12, 27),
+(27, '220402023', 'Raden Hadi Toto Negoro', 'laki-laki', 'Jl. Kosambi', '0855832921', 13, 29);
 
 --
 -- Indexes for dumped tables
@@ -305,7 +305,8 @@ ALTER TABLE `tbldosen`
 ALTER TABLE `tblmhs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nim` (`nim`),
-  ADD KEY `id_dosenpa` (`id_dosen`);
+  ADD KEY `id_dosenpa` (`id_dosen`),
+  ADD KEY `id_prodi` (`id_prodi`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -363,7 +364,7 @@ ALTER TABLE `tbldosen`
 -- AUTO_INCREMENT for table `tblmhs`
 --
 ALTER TABLE `tblmhs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
@@ -393,7 +394,8 @@ ALTER TABLE `prodi`
 -- Constraints for table `tblmhs`
 --
 ALTER TABLE `tblmhs`
-  ADD CONSTRAINT `tblmhs_ibfk_1` FOREIGN KEY (`id_dosen`) REFERENCES `tbldosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tblmhs_ibfk_1` FOREIGN KEY (`id_dosen`) REFERENCES `tbldosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tblmhs_ibfk_2` FOREIGN KEY (`id_prodi`) REFERENCES `prodi` (`id_prodi`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

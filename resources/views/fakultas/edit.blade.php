@@ -1,12 +1,5 @@
-   @extends('include.welcome')
-    @section('content')
-        @php
-            $rec = \DB::table('fakultas')
-                ->where('id_fakultas', $id_fakultas)
-                ->first();
-            $dataDekan = DB::Table('tbldosen')->get();
-        @endphp
-
+@extends('include.welcome')
+@section('content')
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -27,20 +20,19 @@
                                     <div class="form-group">
                                         <label for="kode_fakultas">Kode Fakultas</label>
                                         <input type="number" class="form-control" id="kode_fakultas" name="kode_fakultas"
-                                            value="{{ $rec->kode_fakultas ?? '' }}">
+                                            value="{{ $recordFakultas->kode_fakultas ?? '' }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_fakultas">Nama Fakultas</label>
                                         <input type="text" class="form-control" id="nama_fakultas" name="nama_fakultas"
-                                            value="{{ $rec->nama_fakultas ?? '' }}">
+                                            value="{{ $recordFakultas->nama_fakultas ?? '' }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="id_dosen=">Nama Dekan</label>
                                         <select class="form-control select2" style="width: 100%;" name="id_dosen"
                                             id="id_dosen" required>
                                             @foreach ($dataDekan as $dekan)
-                                                <option value="{{ $dekan->id_dosen }}"
-                                                    {{ $rec->id_dosen == $dekan->id_dosen ? 'selected' : '' }}>
+                                                <option value="{{ $dekan->id_dosen }}" {{ $recordFakultas->id_dosen == $dekan->id_dosen ? 'selected' : '' }}>
                                                     {{ $dekan->nama_dosen }}
                                                 </option>
                                             @endforeach
@@ -48,7 +40,6 @@
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
-
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>

@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 class RuangController extends Controller
 {
     public function index() {
-        return view('ruang.list')
+        $recordRuang = \DB::table('ruang')->GET();
+        $no = 1;
+        return view('ruang.list', compact('recordRuang', 'no'))
             ->with('judul', 'Daftar Ruang');
     }
 
@@ -22,7 +24,6 @@ class RuangController extends Controller
             'nama_ruang' => $r->nama_ruang,
         );
 
-        $pesan = '';
         $rec =\DB::table('ruang')
             ->where('kode_ruang', $r->kode_ruang)
             ->first();
@@ -30,18 +31,18 @@ class RuangController extends Controller
             if($rec == null) {
                 \DB::table('ruang')
                 ->InsertGetId($x);
+                return redirect()->route('ruang.index')->with('sukses', 'Ruang Berhasil Disimpan');
             } else {
-                $pesan = "Tahun Akademik Sudah Terdaftar";
+                return redirect()->route('ruang.create')->with('gagal', 'Ruang Sudah Terdaftar');
             }
-
-            return view('ruang.list')
-                    ->with('judul', 'Daftar Ruang')
-                    ->with('pesan', $pesan);
     }
 
     public function edit($id_ruang) {
+        $recordRuang = \DB::table('ruang')
+                ->where('id_ruang', $id_ruang)
+                ->first();
         
-        return view('ruang.edit')
+        return view('ruang.edit', compact('recordRuang'))
                 ->with('judul', 'Form Edit Ruang')
                 ->with('id_ruang', $id_ruang);
     }
@@ -52,13 +53,11 @@ class RuangController extends Controller
             'nama_ruang' => $r->nama_ruang,
         );
 
-        $pesan = '';
         $rec =\DB::table('ruang')
             ->where('id_ruang', $r -> id_ruang)
             ->update($x);
 
-            return redirect()->route('ruang.index')
-                    ->with('pesan', $pesan);
+            return redirect()->route('ruang.index')->with('sukses', 'Ruang Berhasil Diedit');
     }
 
     public function destroy($id_ruang) {

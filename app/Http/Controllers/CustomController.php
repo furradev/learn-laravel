@@ -79,6 +79,5 @@ class CustomController extends Controller
     public function krs() {
         return view('krs');
     }
-
-    
+   
 }

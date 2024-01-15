@@ -7,12 +7,21 @@ use Illuminate\Http\Request;
 class FakultasController extends Controller
 {
     public function index() {
-        return view('fakultas.list')
-            ->with('judul', 'Daftar Fakultas');
+        $recordsFakultas = \DB::Table('fakultas')
+        ->leftJoin('tbldosen', 'fakultas.id_dosen', '=', 'tbldosen.id_dosen')
+        ->select('fakultas.*', 'tbldosen.nama_dosen as nama_dekan');
+
+        $recordFakultas = $recordsFakultas->get();
+        $no = 1;
+        return view('fakultas.list', compact('recordFakultas', 'no'))
+                ->with('judul', 'Daftar Fakultas');
     }
 
     public function create() {
-        return view('fakultas.form')
+        $recordDekan = \DB::table('tbldosen')->get();
+        $id_dosen = 0;
+
+        return view('fakultas.form', compact('recordDekan', 'id_dosen'))
             ->with('judul', 'Form Fakultas');
     }
 
@@ -23,7 +32,7 @@ class FakultasController extends Controller
             'id_dosen' => $r->id_dosen,
         );
 
-        $pesan = '';
+  
         $rec =\DB::table('fakultas')
             ->where('kode_fakultas', $r->kode_fakultas)
             ->first();
@@ -31,8 +40,9 @@ class FakultasController extends Controller
             if($rec == null) {
                 \DB::table('fakultas')
                 ->InsertGetId($x);
+                return redirect()->route('fakultas.index')->with('sukses', 'Fakultas Berhasil Disimpan');
             } else {
-                $pesan = "Fakultas Sudah Terdaftar";
+                return redirect()->route('fakultas.create')->with('gagal', 'Fakultas Sudah Terdaftar');
             }
 
             return view('fakultas.list')
@@ -41,8 +51,12 @@ class FakultasController extends Controller
     }
 
     public function edit($id_fakultas) {
-        
-        return view('fakultas.edit')
+        $recordFakultas = \DB::table('fakultas')
+                ->where('id_fakultas', $id_fakultas)
+                ->first();
+        $dataDekan = \DB::Table('tbldosen')->get();
+
+        return view('fakultas.edit', compact('recordFakultas', 'dataDekan'))
                 ->with('judul', 'Form Edit Fakultas')
                 ->with('id_fakultas', $id_fakultas);
     }
@@ -54,13 +68,11 @@ class FakultasController extends Controller
             'id_dosen' => $r->id_dosen,
         );
 
-        $pesan = '';
         $rec =\DB::table('fakultas')
             ->where('id_fakultas', $r -> id_fakultas)
             ->update($x);
 
-            return redirect()->route('fakultas.index')
-                    ->with('pesan', $pesan);
+            return redirect()->route('fakultas.index')->with('sukses', 'Fakultas Berhasil Diedit');
     }
 
     public function destroy($id_fakultas) {

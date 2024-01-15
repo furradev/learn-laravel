@@ -1,5 +1,15 @@
     @extends('include.welcome')
     @section('content')
+
+        @if(session('gagal'))
+        <div class="alert alert-dismissible fade show alert-danger" role="alert">
+            <strong>Halo, User!</strong> {{ session('gagal')  }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">

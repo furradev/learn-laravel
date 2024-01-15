@@ -7,12 +7,24 @@ use Illuminate\Http\Request;
 class ProdiController extends Controller
 {
     public function index() {
-        return view('prodi.list')
-            ->with('judul', 'Daftar Prodi');
+
+        $recordsProdi = \DB::Table('prodi')
+            ->leftJoin('fakultas', 'prodi.id_fakultas', '=', 'fakultas.id_fakultas')
+            ->leftJoin('jenjang', 'prodi.id_jenjang', '=', 'jenjang.id_jenjang')
+            ->leftJoin('tbldosen', 'prodi.id_dosen', '=', 'tbldosen.id_dosen')
+            ->select('prodi.*', 'fakultas.nama_fakultas as nama_fakultas', 'jenjang.nama_jenjang as nama_jenjang', 'tbldosen.nama_dosen as nama_kaprodi');
+
+        $recordProdi = $recordsProdi->get();
+        $no = 1;
+        return view('prodi.list', compact('recordProdi', 'no'))
+                ->with('judul', 'Daftar Prodi');
     }
 
     public function create() {
-        return view('prodi.form')
+
+        $recordKaprodi = \DB::table('tbldosen')->get();
+        $id_dosen = 0;
+        return view('prodi.form', compact('recordKaprodi', 'id_dosen'))
             ->with('judul', 'Form Prodi');
     }
 
@@ -27,7 +39,6 @@ class ProdiController extends Controller
             'akreditasi' => $r->akreditasi, 
         );
 
-        $pesan = '';
         $rec =\DB::table('prodi')
             ->where('kode_prodi', $r->kode_prodi)
             ->first();
@@ -35,18 +46,22 @@ class ProdiController extends Controller
             if($rec == null) {
                 \DB::table('prodi')
                 ->InsertGetId($x);
+                return redirect()->route('prodi.index')->with('sukses', 'Program Studi Berhasil Disimpan');
             } else {
-                $pesan = "Prodi Sudah Terdaftar";
-            }
-
-            return view('prodi.list')
-                    ->with('judul', 'Daftar Prodi')
-                    ->with('pesan', $pesan);
+                return redirect()->route('prodi.create')->with('gagal', 'Program Studi Sudah Terdaftar');
+            } 
     }
 
     public function edit($id_prodi) {
-        
-        return view('prodi.edit')
+        $recordsProdi = \DB::table('prodi')
+                ->where('id_prodi', $id_prodi)
+                ->first();
+
+        $dataJenjang = \DB::Table('jenjang')->get();
+        $dataFakultas = \DB::Table('fakultas')->get();
+        $dataKaprodi = \DB::Table('tbldosen')->get();
+
+        return view('prodi.edit', compact('recordsProdi', 'dataJenjang', 'dataFakultas', 'dataKaprodi'))
                 ->with('judul', 'Form Edit Prodi')
                 ->with('id_prodi', $id_prodi);
     }
@@ -62,13 +77,11 @@ class ProdiController extends Controller
             'akreditasi' => $r->akreditasi, 
         );
 
-        $pesan = '';
         $rec =\DB::table('prodi')
             ->where('id_prodi', $r -> id_prodi)
             ->update($x);
 
-            return redirect()->route('prodi.index')
-                    ->with('pesan', $pesan);
+            return redirect()->route('prodi.index')->with('sukses', 'Prodi Berhasil Diedit');
     }
 
     public function destroy($id_prodi) {

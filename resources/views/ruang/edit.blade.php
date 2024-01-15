@@ -1,10 +1,10 @@
     @extends('include.welcome')
     @section('content')
-        @php
+        {{-- @php
             $rec = \DB::table('ruang')
                 ->where('id_ruang', $id_ruang)
                 ->first();
-        @endphp
+        @endphp --}}
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -25,12 +25,12 @@
                                     <div class="form-group">
                                         <label for="kode_ruang">Kode Ruang</label>
                                         <input type="number" class="form-control" id="kode_ruang" name="kode_ruang"
-                                            value="{{ $rec->kode_ruang ?? '' }}">
+                                            value="{{ $recordRuang->kode_ruang ?? '' }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_ruang">Nama Ruang</label>
                                         <input type="text" class="form-control" id="nama_ruang" name="nama_ruang"
-                                            value="{{ $rec->nama_ruang ?? '' }}">
+                                            value="{{ $recordRuang->nama_ruang ?? '' }}">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

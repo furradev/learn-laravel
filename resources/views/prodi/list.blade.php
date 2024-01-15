@@ -1,5 +1,15 @@
     @extends('include.welcome')
     @section('content')
+
+        @if(session('sukses'))
+        <div class="alert alert-dismissible fade show alert-success" role="alert">
+            <strong>Halo, User!</strong> {{ session('sukses')  }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -32,9 +42,9 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Kode Prodi</th>
-                                            <th>Jenjang</th>
-                                            <th>Fakultas</th>
                                             <th>Nama Prodi</th>
+                                            <th>Fakultas</th>
+                                            <th>Jenjang</th>
                                             <th>Nama Kaprodi</th>
                                             <th>Tanggal SK</th>
                                             <th>Akreditasi</th>
@@ -43,52 +53,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $rec = DB::table('prodi')->GET();
-                                            $no = 0;
-                                        @endphp
-                                        @foreach ($rec as $key => $value)
-                                            @php
-                                                $no++;
-                                            @endphp
-                                            <tr>
-                                                <td>{{ $no }}</td>
-                                                <td>{{ $value->kode_prodi ?? '-' }}</td>
-                                                <td>@php
-                                                    $idjenjang = DB::Table('jenjang')
-                                                        ->where('id_jenjang', $value->id_jenjang)
-                                                        ->first();
-                                                    echo $idjenjang ? $idjenjang->nama_jenjang : '';
-                                                @endphp</td>
-                                                <td>@php
-                                                    $idfakultas = DB::Table('fakultas')
-                                                        ->where('id_fakultas', $value->id_fakultas)
-                                                        ->first();
-                                                    echo $idfakultas ? $idfakultas->nama_fakultas : '';
-                                                @endphp</td>
-                                                <td>{{ $value->nama_prodi ?? '-' }}</td>
-                                                <td>
-                                                    @php
-                                                        $idkaprodi = DB::Table('tbldosen')
-                                                            ->where('id_dosen', $value->id_dosen)
-                                                            ->first();
-                                                        echo $idkaprodi ? $idkaprodi->nama_dosen : '';
-                                                    @endphp
-                                                </td>
-                                                <td>{{ $value->tglsk ?? '-' }}</td>
-                                                <td>{{ $value->akreditasi ?? '-' }}</td>
-                                                <td><a href="{{ Route('prodi.edit', $value->id_prodi) }}"
-                                                        class="btn btn-primary">Edit</a></td>
-
-                                                <td>
-                                                    <form action="{{ Route('prodi.destroy', $value->id_prodi) }}"
-                                                        method="POST" onsubmit="return confirm('Yakin Ingin Menghapus ?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                        @foreach ($recordProdi as $record)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $record->kode_prodi}}</td>
+                                            <td>{{ $record->nama_prodi}}</td>
+                                            <td>{{ $record->nama_fakultas}}</td>
+                                            <td>{{ $record->nama_jenjang}}</td>
+                                            <td>{{ $record->nama_kaprodi}}</td>
+                                            <td>{{ $record->tglsk}}</td>
+                                            <td>{{ $record->akreditasi}}</td>
+                                            <td><a href="{{ Route('prodi.edit', $record->id_prodi) }}"
+                                                class="btn btn-primary">Edit</a></td>
+                                            <td>
+                                                <form action="{{ Route('prodi.destroy', $record->id_prodi) }}"
+                                                    method="POST" onsubmit="return confirm('Yakin Ingin Menghapus ?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

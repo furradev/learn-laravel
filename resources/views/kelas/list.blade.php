@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelas</title>
-</head>
-
-<body>
     @extends('include.welcome')
     @section('content')
+
+    @if(session('sukses'))
+    <div class="alert alert-dismissible fade show alert-success" role="alert">
+        <strong>Halo, User!</strong> {{ session('sukses')  }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -48,29 +47,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $rec = DB::table('kelas')->GET();
-                                            $no = 0;
-                                        @endphp
-                                        @foreach ($rec as $key => $value)
-                                            @php
-                                                $no++;
-                                            @endphp
+                                        @foreach ($recordKelas as $record)
                                             <tr>
-                                                <td>{{ $no }}</td>
-                                                <td>{{ $value->kode_kelas ?? '-' }}</td>
-                                                <td>{{ $value->nama_kelas ?? '-' }}</td>
-                                                <td>@php
-                                                    $idta = DB::Table('tahun_akademik')
-                                                        ->where('id_tahun_akademik', $value->id_tahun_akademik)
-                                                        ->first();
-                                                    echo $idta ? $idta->kode_tahun_akademik . ' - ' . $idta->nama_tahun_akademik : '';
-                                                @endphp</td>
-                                                <td><a href="{{ Route('kelas.edit', $value->id_kelas) }}"
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $record->kode_kelas ?? '-' }}</td>
+                                                <td>{{ $record->nama_kelas ?? '-' }}</td>
+                                                <td>{{ $record->kode_tahun_akademik }} - {{$record->nama_tahun_akademik}}</td>
+                                                <td><a href="{{ Route('kelas.edit', $record->id_kelas) }}"
                                                         class="btn btn-primary">Edit</a></td>
-
                                                 <td>
-                                                    <form action="{{ Route('kelas.destroy', $value->id_kelas) }}"
+                                                    <form action="{{ Route('kelas.destroy', $record->id_kelas) }}"
                                                         method="POST" onsubmit="return confirm('Yakin Ingin Menghapus ?')">
                                                         @csrf
                                                         @method('DELETE')
@@ -96,7 +82,6 @@
             </div>
             <!-- /.container-fluid -->
         </section>
-    </body>
 @stop
 
-</html>
+

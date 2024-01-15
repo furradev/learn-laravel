@@ -1,5 +1,15 @@
     @extends('include.welcome')
     @section('content')
+
+        @if(session('sukses'))
+            <div class="alert alert-dismissible fade show alert-success" role="alert">
+                <strong>Halo, User!</strong> {{ session('sukses')  }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -38,23 +48,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $rec = DB::table('ruang')->GET();
-                                            $no = 0;
-                                        @endphp
-                                        @foreach ($rec as $key => $value)
-                                            @php
-                                                $no++;
-                                            @endphp
+                                        @foreach ($recordRuang as $record)
                                             <tr>
-                                                <td>{{ $no }}</td>
-                                                <td>{{ $value->kode_ruang ?? '-' }}</td>
-                                                <td>{{ $value->nama_ruang ?? '-' }}</td>
-                                                <td><a href="{{ Route('ruang.edit', $value->id_ruang) }}"
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $record->kode_ruang ?? '-' }}</td>
+                                                <td>{{ $record->nama_ruang ?? '-' }}</td>
+                                                <td><a href="{{ Route('ruang.edit', $record->id_ruang) }}"
                                                         class="btn btn-primary">Edit</a></td>
 
                                                 <td>
-                                                    <form action="{{ Route('ruang.destroy', $value->id_ruang) }}"
+                                                    <form action="{{ Route('ruang.destroy', $record->id_ruang) }}"
                                                         method="POST" onsubmit="return confirm('Yakin Ingin Menghapus ?')">
                                                         @csrf
                                                         @method('DELETE')

@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 class TahunAkademikController extends Controller
 {
     public function index() {
-        return view('tahunakademik.list')
+        $recordsTahunAkademik = \DB::Table('tahun_akademik');
+        $no = 1;
+
+        $recordTahunAkademik = $recordsTahunAkademik->get();
+
+        return view('tahunakademik.list', compact('recordTahunAkademik', 'no'))
             ->with('judul', 'Daftar Tahun Akademik');
     }
 
@@ -22,26 +27,26 @@ class TahunAkademikController extends Controller
             'nama_tahun_akademik' => $r->nama_tahun_akademik,
         );
 
-        $pesan = '';
         $rec =\DB::table('tahun_akademik')
             ->where('kode_tahun_akademik', $r->kode_tahun_akademik)
-            ->InsertGetId($x);
+            ->first();
         
-            // if($rec.length < 2) {
-            //     \DB::table('tahun_akademik')
-                    
-            // } else {
-            //     $pesan = "Tahun Akademik Sudah Terdaftar";
-            // }
+            if($rec == null) {
+                \DB::table('tahun_akademik')
+                        ->InsertGetId($x);
+                return redirect()->route('tahunakademik.index')->with('sukses', 'Tahun Akademik Berhasil Disimpan');
+            } else {
+                return redirect()->route('tahunakademik.create')->with('gagal', 'Tahun Akademik Sudah Terdaftar');
+            }
 
-            return view('tahunakademik.list')
-                    ->with('judul', 'Daftar Tahun Akademik')
-                    ->with('pesan', $pesan);
     }
 
     public function edit($id_tahun_akademik) {
-        
-        return view('tahunakademik.edit')
+        $recordStoreTA = \DB::table('tahun_akademik')
+                ->where('id_tahun_akademik', $id_tahun_akademik)
+                ->first();
+
+        return view('tahunakademik.edit', compact('recordStoreTA'))
                 ->with('judul', 'Form Edit Tahun Akademik')
                 ->with('id_tahun_akademik', $id_tahun_akademik);
     }
@@ -51,14 +56,10 @@ class TahunAkademikController extends Controller
             'kode_tahun_akademik' => $r->kode_tahun_akademik,
             'nama_tahun_akademik' => $r->nama_tahun_akademik,
         );
-
-        $pesan = '';
-        $rec =\DB::table('tahun_akademik')
+            $rec =\DB::table('tahun_akademik')
             ->where('id_tahun_akademik', $r -> id_tahun_akademik)
             ->update($x);
-
-            return redirect()->route('tahunakademik.index')
-                    ->with('pesan', $pesan);
+            return redirect()->route('tahunakademik.index')->with('sukses', 'Tahun Akademik Berhasil Diedit');
     }
 
     public function destroy($id_tahun_akademik) {

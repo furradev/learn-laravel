@@ -1,5 +1,15 @@
     @extends('include.welcome')
     @section('content')
+
+        @if(session('sukses'))
+        <div class="alert alert-dismissible fade show alert-success" role="alert">
+            <strong>Halo, User!</strong> {{ session('sukses')  }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+    
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -39,31 +49,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $rec = DB::table('fakultas')->GET();
-                                            $no = 0;
-                                        @endphp
-                                        @foreach ($rec as $key => $value)
-                                            @php
-                                                $no++;
-                                            @endphp
+                                        @foreach ($recordFakultas as $record)
+
                                             <tr>
-                                                <td>{{ $no }}</td>
-                                                <td>{{ $value->kode_fakultas ?? '-' }}</td>
-                                                <td>{{ $value->nama_fakultas ?? '-' }}</td>
-                                                <td>
-                                                    @php
-                                                        $iddekan = DB::Table('tbldosen')
-                                                            ->where('id_dosen', $value->id_dosen)
-                                                            ->first();
-                                                        echo $iddekan ? $iddekan->nama_dosen : '';
-                                                    @endphp
-                                                </td>
-                                                <td><a href="{{ Route('fakultas.edit', $value->id_fakultas) }}"
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $record->kode_fakultas ?? '-' }}</td>
+                                                <td>{{ $record->nama_fakultas ?? '-' }}</td>
+                                                <td>{{ $record->nama_dekan ?? '-' }}</td>
+                                               
+                                                <td><a href="{{ Route('fakultas.edit', $record->id_fakultas) }}"
                                                         class="btn btn-primary">Edit</a></td>
 
                                                 <td>
-                                                    <form action="{{ Route('fakultas.destroy', $value->id_fakultas) }}"
+                                                    <form action="{{ Route('fakultas.destroy', $record->id_fakultas) }}"
                                                         method="POST" onsubmit="return confirm('Yakin Ingin Menghapus ?')">
                                                         @csrf
                                                         @method('DELETE')

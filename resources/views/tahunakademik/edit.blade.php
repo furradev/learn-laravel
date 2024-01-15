@@ -1,11 +1,14 @@
     @extends('include.welcome')
     @section('content')
 
-        @php
-            $rec = \DB::table('tahun_akademik')
-                ->where('id_tahun_akademik', $id_tahun_akademik)
-                ->first();
-        @endphp
+        @if(session('gagal'))
+        <div class="alert alert-dismissible fade show alert-danger" role="alert">
+            <strong>Halo, User!</strong> {{ session('gagal')  }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -26,12 +29,12 @@
                                     <div class="form-group">
                                         <label for="kode_tahun_akademik">Kode Tahun Akademik</label>
                                         <input type="number" class="form-control" id="kode_tahun_akademik"
-                                            name="kode_tahun_akademik" value="{{ $rec->kode_tahun_akademik ?? '' }}">
+                                            name="kode_tahun_akademik" value="{{ $recordStoreTA->kode_tahun_akademik ?? '' }}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_tahun_akademik">Nama Prodi</label>
                                         <input type="text" class="form-control" id="nama_tahun_akademik"
-                                            name="nama_tahun_akademik" value="{{ $rec->nama_tahun_akademik ?? '' }}">
+                                            name="nama_tahun_akademik" value="{{ $recordStoreTA->nama_tahun_akademik ?? '' }}">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

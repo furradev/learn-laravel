@@ -1,5 +1,15 @@
     @extends('include.welcome')
     @section('content')
+
+        @if(session('sukses'))
+        <div class="alert alert-dismissible fade show alert-success" role="alert">
+            <strong>Halo, User!</strong> {{ session('sukses')  }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -38,25 +48,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $rec = DB::table('tahun_akademik')->GET();
-                                            $no = 0;
-                                        @endphp
-                                        @foreach ($rec as $key => $value)
-                                            @php
-                                                $no++;  
-                                            @endphp
+                                        @foreach ($recordTahunAkademik as $record)
                                             <tr>
-                                                <td>{{ $no }}</td>
-                                                <td>{{ $value->kode_tahun_akademik ?? '-' }}</td>
-                                                <td>{{ $value->nama_tahun_akademik ?? '-' }}</td>
-                                                <td><a href="{{ Route('tahunakademik.edit', $value->id_tahun_akademik) }}"
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $record->kode_tahun_akademik ?? '-' }}</td>
+                                                <td>{{ $record->nama_tahun_akademik ?? '-' }}</td>
+                                                <td><a href="{{ Route('tahunakademik.edit', $record->id_tahun_akademik) }}"
                                                         class="btn btn-primary">Edit</a>
                                                 </td>
 
                                                 <td>
                                                     <form
-                                                        action="{{ Route('tahunakademik.destroy', $value->id_tahun_akademik) }}"
+                                                        action="{{ Route('tahunakademik.destroy', $record->id_tahun_akademik) }}"
                                                         method="POST" onsubmit="return confirm('Yakin Ingin Menghapus ?')">
                                                         @csrf
                                                         @method('DELETE')

@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kelas</title>
-</head>
-
-<body>
     @extends('include.welcome')
     @section('content')
+
+    @if(session('sukses'))
+    <div class="alert alert-dismissible fade show alert-success" role="alert">
+        <strong>Halo, User!</strong> {{ session('sukses')  }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -38,25 +37,17 @@
                                         <label for="id_tahun_akademik">Tahun Akademik</label>
                                         <select class="form-control select2" style="width: 100%;" name="id_tahun_akademik"
                                             id="id_tahun_akademik" required>
-                                            @php
-                                                $rec = DB::table('tahun_akademik')->get();
-                                                $id_tahun_akademik = 0;
-                                            @endphp
-
-                                            @foreach ($rec as $key)
-                                                @php
-                                                    if ($id_tahun_akademik == $key->id_tahun_akademik) {
-                                                        echo "<option selected='selected' value='" . $key->id_tahun_akademik . "'>" . $key->kode_tahun_akademik . '-' . $key->nama_tahun_akademik . '</option>';
-                                                    } else {
-                                                        echo "<option value='" . $key->id_tahun_akademik . "'>" . $key->kode_tahun_akademik . '-' . $key->nama_tahun_akademik . '</option>';
-                                                    }
-                                                @endphp
+                                            @foreach ($recordTA as $record)
+                                                @if($id_tahun_akademik == $record->id_tahun_akademik)
+                                                <option value="{{$record->id_tahun_akademik}}" selected="selected">{{$record->kode_tahun_akademik}} - {{$record->nama_tahun_akademik}}</option>
+                                                @else
+                                                <option value="{{$record->id_tahun_akademik}}">{{$record->kode_tahun_akademik}} - {{$record->nama_tahun_akademik}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
-
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -68,7 +59,4 @@
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </section>
-    </body>
 @stop
-
-</html>

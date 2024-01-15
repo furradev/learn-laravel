@@ -1,5 +1,15 @@
     @extends('include.welcome')
     @section('content')
+
+        @if(session('gagal'))
+        <div class="alert alert-dismissible fade show alert-danger" role="alert">
+            <strong>Halo, User!</strong> {{ session('gagal')  }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+
         <section class="content">
             <div class="container-fluid">
                 <div class="row mt-4">
@@ -27,19 +37,24 @@
                                         <label for="id_dosen">Nama Kaprodi</label>
                                         <select class="form-control select2" style="width: 100%;" name="id_dosen"
                                             id="id_dosen" required>
-                                            @php
+                                            {{-- @php
                                                 $rec = DB::table('tbldosen')->get();
                                                 $id_dosen = 0;
-                                            @endphp
+                                            @endphp --}}
 
-                                            @foreach ($rec as $key)
-                                                @php
+                                            @foreach ($recordKaprodi as $record)
+                                                @if($id_dosen == $record->id_dosen)
+                                                    <option selected='selected' value="{{$record->id_dosen}}">{{$record->nama_dosen}}</option>
+                                                @else
+                                                    <option value="{{$record->id_dosen}}">{{$record->nama_dosen}}</option>
+                                                @endif
+                                                {{-- @php
                                                     if ($id_dosen == $key->id_dosen) {
                                                         echo "<option selected='selected' value='" . $key->id_dosen . "'>" . $key->nama_dosen . '</option>';    
                                                     } else {
                                                         echo "<option value='" . $key->id_dosen . "'>" . $key->nama_dosen . '</option>';
                                                     }
-                                                @endphp
+                                                @endphp --}}
                                             @endforeach
                                         </select>
                                     </div>

@@ -7,12 +7,21 @@ use Illuminate\Http\Request;
 class KelasController extends Controller
 {
     public function index() {
-        return view('kelas.list')
+
+        $recordsKelas = \DB::table('kelas')
+        ->leftJoin('tahun_akademik', 'kelas.id_tahun_akademik', '=', 'tahun_akademik.id_tahun_akademik')
+        ->select('kelas.*', 'tahun_akademik.kode_tahun_akademik as kode_tahun_akademik', 'tahun_akademik.nama_tahun_akademik as nama_tahun_akademik');
+        $recordKelas = $recordsKelas->get();
+        $no = 1;
+        
+        return view('kelas.list', compact('recordKelas', 'no'))
             ->with('judul', 'Daftar Kelas');
     }
 
     public function create() {
-        return view('kelas.form')
+        $recordTA = \DB::table('tahun_akademik')->get();
+        $id_tahun_akademik = 0;
+        return view('kelas.form', compact('recordTA', 'id_tahun_akademik'))
             ->with('judul', 'Form Kelas');
     }
 
@@ -23,7 +32,6 @@ class KelasController extends Controller
             'id_tahun_akademik' => $r->id_tahun_akademik,
         );
 
-        $pesan = '';
         $rec =\DB::table('kelas')
             ->where('kode_kelas', $r->kode_kelas)
             ->first();
@@ -31,13 +39,10 @@ class KelasController extends Controller
             if($rec == null) {
                 \DB::table('kelas')
                 ->InsertGetId($x);
+                return redirect()->route('kelas.index')->with('sukses', 'Kelas Berhasil Disimpan');
             } else {
-                $pesan = "Kelas Sudah Terdaftar";
-            }
-
-            return view('kelas.list')
-                    ->with('judul', 'Daftar Kelas')
-                    ->with('pesan', $pesan);
+                return redirect()->route('kelas.create')->with('gagal', 'Kelas Sudah Terdaftar');
+            } 
     }
 
     public function edit($id_kelas) {

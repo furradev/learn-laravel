@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 use App\Http\Controllers\CustomController;
 use App\Http\Controllers\CRUDController;
 use App\Http\Controllers\DosenController;
@@ -23,13 +23,30 @@ use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\KelasController;
 
 Route::get('/', function () {
-    return view('include.welcome');
+    return view('auth.login');
 });
-// Route::get('/template', function () {
-//     return view('include.welcome');
-// });
 
+Route::middleware(['auth', 'verified', 'rolesChecker:admin'])->group(function() {
+    Route::get('/dashboard', function () {
+        return view('include.welcome');
+    })->name('dashboard');
+});
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::resources([
+    'mahasiswa' => CRUDController::class,
+    'dosen' => DosenController::class,
+    'tahunakademik' => TahunAkademikController::class,
+    'ruang' => RuangController::class,
+    'fakultas' => FakultasController::class,
+    'prodi' => ProdiController::class,
+    'kelas' => kelasController::class,
+]);
 
 Route::controller(CustomController::class)->group(function() {
     Route::get('/perkalian', 'perkalian');
@@ -45,14 +62,4 @@ Route::controller(CustomController::class)->group(function() {
 });
 
 
-Route::resources([
-    'mahasiswa' => CRUDController::class,
-    'dosen' => DosenController::class,
-    'tahunakademik' => TahunAkademikController::class,
-    'ruang' => RuangController::class,
-    'fakultas' => FakultasController::class,
-    'prodi' => ProdiController::class,
-    'kelas' => kelasController::class,
-]);
-
-// Route::get('deletedosen/{id}', 'DosenController@destroy');
+require __DIR__.'/auth.php';

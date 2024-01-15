@@ -65,7 +65,7 @@ class CRUDController extends Controller
 
         $pesan = '';
         $rec =\DB::table('tblmhs')
-            ->where('id', $r -> id)
+            ->where('id', $r->id)
             ->update($x);
 
             return view('mahasiswa.list')

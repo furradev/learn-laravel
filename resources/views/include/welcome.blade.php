@@ -45,7 +45,16 @@
             </ul>
 
             <!-- Right navbar links -->
-
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a class="nav-link" data-widget="navbar-search" href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" role="button">
+                    <i class="fas fa-power-off"></i>
+                  </form>
+                  </a>
+                </li>
+            </ul>
         </nav>
         <!-- /.navbar -->
 
@@ -67,7 +76,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alfakih Anggi Subekti</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 

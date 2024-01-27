@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label for="kode_tahun_akademik">Kode Tahun Akademik</label>
                                         <input type="number" class="form-control" id="kode_tahun_akademik"
-                                            name="kode_tahun_akademik" value="{{ $recordStoreTA->kode_tahun_akademik ?? '' }}" disabled>
+                                            name="kode_tahun_akademik" value="{{ $recordStoreTA->kode_tahun_akademik ?? '' }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_tahun_akademik">Nama Prodi</label>

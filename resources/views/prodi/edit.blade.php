@@ -20,7 +20,7 @@
                                     <div class="form-group">
                                         <label for="kode_prodi">Kode Prodi</label>
                                         <input type="number" class="form-control" id="kode_prodi" name="kode_prodi"
-                                            value="{{ $recordsProdi->kode_prodi ?? '' }}" disabled>
+                                            value="{{ $recordsProdi->kode_prodi ?? '' }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_prodi">Nama Prodi</label>
